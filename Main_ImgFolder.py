@@ -72,7 +72,7 @@ def process_image_folder():
             command_text, prev_turn_angle = make_decision(detected_objects, SAFE_DISTANCE, ANGLE_STABILIZATION, prev_turn_angle, width, FOV)
             
 
-        merge_detections(color_image, depth_colormap, detected_objects, depth_image, model) # merge_detections(color_image, depth_colormap, detected_contours, detected_objects, depth_image, model)
+        merge_detections(color_image, depth_colormap, detected_objects, depth_image, model) 
 
 
 
