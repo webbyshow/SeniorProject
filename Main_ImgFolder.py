@@ -12,6 +12,8 @@ from yolo_detection      import load_yolo_model,     detect_objects             
 from depth_map_detection import process_depth_image, detect_contours            # Script file
 from path_decision       import make_decision,       make_depth_based_decision  # Script file
 
+print('Initialize The Project')
+
 def process_image_folder():
 
     rgb_folder   = config.RGB_FOLDER_PATH
