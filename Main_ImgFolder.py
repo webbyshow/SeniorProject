@@ -42,7 +42,7 @@ def process_image_folder():
         print("Error: RGB and Depth folder must have the same number of images!")
         return
 
-    # Set up frame saving folder
+    ## Set up frame saving folder
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     recorded_frame = "recorded_frames_" + str(timestamp)
     # os.makedirs(recorded_frame, exist_ok=True)

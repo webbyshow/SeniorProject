@@ -41,7 +41,6 @@ def make_decision(detected_objects, safe_distance, angle_stabilization, prev_tur
 
 def make_depth_based_decision(depth_image, max_distance_mm, safe_distance, width, fov):
 
-    problem_found = 'The Depth We Use is bullshit, depth map noise lead to the mistake'
     if depth_image is None:
         return "No Depth Data"
 
