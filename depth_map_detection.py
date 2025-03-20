@@ -55,3 +55,12 @@ def detect_contours(depth_8bit, obj_min_area): # Not Use
             x, y, w, h = cv2.boundingRect(contour)
             detected_contours.append((x, y, w, h))
     return detected_contours
+
+
+# def process_depth_image(depth_image, max_distance_mm):
+    
+#     depth_filtered = np.where((depth_image > 0) & (depth_image <= max_distance_mm), depth_image, 0)
+#     depth_8bit     = cv2.convertScaleAbs(depth_filtered, alpha=0.03)
+#     depth_colormap = cv2.applyColorMap(depth_8bit, cv2.COLORMAP_JET)
+
+#     return depth_colormap, depth_8bit
