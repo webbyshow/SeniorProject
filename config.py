@@ -11,7 +11,11 @@ def setup_realsense(width,height):
 
 CLASS_NAMES = ['fixed_obstacle', 'moving_obstacles', 'target']
 
-RGB_FOLDER_PATH =   r"data\recorded_frames20250317_003833\color_no_label"
-DEPTH_FOLDER_PATH = r"data\recorded_frames20250317_003833\depth_colormap"
+RGB_FOLDER_PATH =   r"data\recorded_frames20250317_002305\color_no_label"
+DEPTH_FOLDER_PATH = r"data\recorded_frames20250317_002305\depth_colormap"
+
+# Depth Map' name Model Test
+name = RGB_FOLDER_PATH.split('\\')
+DEPTH_MODEL_NAME = name[1].split('recorded_frames')[1]
 
 YOLO_MODEL_PATH = r"model\yolov8n.pt"

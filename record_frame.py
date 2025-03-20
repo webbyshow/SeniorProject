@@ -3,12 +3,10 @@ import os
 import cv2
 
 def setup_frame_savers(output_folder):
-    # os.makedirs(output_folder, exist_ok=True)
+    os.makedirs(output_folder, exist_ok=True)
     rgb_folder = os.path.join(output_folder, "rgb_frames")
     depth_folder = os.path.join(output_folder, "depth_frames")
     rgb_no_label_folder = os.path.join(output_folder, "rgb_no_label_frames")
-    
-    
     return rgb_folder, depth_folder, rgb_no_label_folder
 
 def save_frame(frame, folder, frame_index):

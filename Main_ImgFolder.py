@@ -23,12 +23,12 @@ def process_image_folder():
     width = 640
     height = 480
     FOV = 48 if width * height < 600000 else 64
-    MAX_DISTANCE_M = 5.0            # Max distance in meters
-    MAX_DISTANCE_MM = int(MAX_DISTANCE_M * 1000)     # Convert to mm
+    MAX_DISTANCE_M = 5.0                                # Max distance in meters
+    MAX_DISTANCE_MM = int(MAX_DISTANCE_M * 1000)        # Convert to mm
     CONF_THRESHOLD = 0.05                               # YOLO confidence threshold
-    OBJ_MIN_AREA = (500 * width * height) / (640 * 480)  # Minimum contour area
-    SAFE_DISTANCE = 1500        # Safe distance in mm
-    ANGLE_STABILIZATION = 5  # Stabilization factor
+    OBJ_MIN_AREA = (500 * width * height) / (640 * 480) # Minimum contour area
+    SAFE_DISTANCE = 1500                                # Safe distance in mm
+    ANGLE_STABILIZATION = 5                             # Stabilization factor
 
     frame_index = 0
     prev_turn_angle = None  # Initialize previous turn angle
@@ -42,11 +42,16 @@ def process_image_folder():
         print("Error: RGB and Depth folder must have the same number of images!")
         return
 
+    depth_map_model = 'A' ## 'A'/ 'B' / 'C' / 'D'
+
     ## Set up frame saving folder
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    recorded_frame = "recorded_frames_" + str(timestamp)
-    # os.makedirs(recorded_frame, exist_ok=True)
-    rgb_out, depth_out, rgb_no_label_out = setup_frame_savers(recorded_frame)
+
+    # recorded_frame_name = "recorded_frames_" + str(timestamp)
+    recorded_frame_name = "_depth_" + config.DEPTH_MODEL_NAME + depth_map_model  
+    os.makedirs(recorded_frame_name, exist_ok=True)
+    
+    rgb_out, depth_out, rgb_no_label_out = setup_frame_savers(recorded_frame_name)
 
     for i, (rgb_file, depth_file) in enumerate(zip(rgb_files, depth_files)):
         rgb_path = os.path.join(rgb_folder, rgb_file)
@@ -61,7 +66,7 @@ def process_image_folder():
 
         color_no_label = color_image.copy()
 
-        depth_colormap, depth_8bit = process_depth_image(depth_image, MAX_DISTANCE_MM) # Process depth and detection
+        depth_colormap, depth_8bit = process_depth_image(depth_image, MAX_DISTANCE_MM,depth_map_model) 
 
         # detected_contours = detect_contours(depth_8bit, OBJ_MIN_AREA)
         detected_objects = detect_objects(model, color_image, CONF_THRESHOLD, depth_image)
@@ -73,15 +78,12 @@ def process_image_folder():
         else : 
             pass
             
-
         merge_detections(color_image, depth_colormap, detected_objects, depth_image, model) 
-
-
 
         cv2.putText(color_image, command_text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
-        # save_frame(color_image, recorded_frame + "/color_image", frame_index)
-        # save_frame(depth_colormap, recorded_frame + "/depth_colormap", frame_index)
+        save_frame(color_image,    recorded_frame_name + "/color_image", frame_index)
+        save_frame(depth_colormap, recorded_frame_name + "/depth_colormap", frame_index)
         # save_frame(color_no_label, recorded_frame + "/color_no_label", frame_index)
         frame_index += 1
 
@@ -90,7 +92,7 @@ def process_image_folder():
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-    # Cleanup
+    ## Cleanup
     # rgb_out.release()
     # depth_out.release()
     # rgb_no_label_out.release()
