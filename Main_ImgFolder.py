@@ -66,10 +66,12 @@ def process_image_folder():
         # detected_contours = detect_contours(depth_8bit, OBJ_MIN_AREA)
         detected_objects = detect_objects(model, color_image, CONF_THRESHOLD, depth_image)
         
+        command_text, prev_turn_angle = make_decision(detected_objects, SAFE_DISTANCE, ANGLE_STABILIZATION, prev_turn_angle, width, FOV)
+        
         if len(detected_objects) == 0 :
             command_text = make_depth_based_decision(depth_image, MAX_DISTANCE_MM, SAFE_DISTANCE, width, FOV)
         else : 
-            command_text, prev_turn_angle = make_decision(detected_objects, SAFE_DISTANCE, ANGLE_STABILIZATION, prev_turn_angle, width, FOV)
+            pass
             
 
         merge_detections(color_image, depth_colormap, detected_objects, depth_image, model) 
