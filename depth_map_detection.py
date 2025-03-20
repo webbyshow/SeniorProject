@@ -1,17 +1,6 @@
 import numpy as np
 import cv2
 
-# def process_depth_image(depth_image, max_distance_mm):
-
-#     mask = np.where(depth_image == 0, 255, 0).astype(np.uint8)
-
-#     depth_inpainted = cv2.inpaint(depth_image.astype(np.float32), mask, inpaintRadius=3, flags=cv2.INPAINT_TELEA)
-#     depth_filtered = np.where((depth_inpainted > 0) & (depth_inpainted <= max_distance_mm), depth_inpainted, 0)
-#     depth_8bit = cv2.normalize(depth_filtered, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
-#     depth_colormap = cv2.applyColorMap(depth_8bit, cv2.COLORMAP_JET)
-
-#     return depth_colormap, depth_8bit
-
 def process_depth_image(depth_image, max_distance_mm, model='A'):
     if len(depth_image.shape) == 3 and depth_image.shape[2] == 3:
         depth_gray = cv2.cvtColor(depth_image, cv2.COLOR_BGR2GRAY)
