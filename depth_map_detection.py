@@ -40,7 +40,7 @@ def process_depth_image(depth_image, max_distance_mm, model='A'):
         depth_8bit      = cv2.convertScaleAbs(depth_filtered, alpha=0.03)
         depth_colormap  = cv2.applyColorMap(depth_8bit, cv2.COLORMAP_JET)
         return depth_colormap, depth_8bit
-    else : 
+    else : # Default
         depth_filtered = np.where((depth_image > 0) & (depth_image <= max_distance_mm), depth_image, 0)
         depth_8bit     = cv2.convertScaleAbs(depth_filtered, alpha=0.03)
         depth_colormap = cv2.applyColorMap(depth_8bit, cv2.COLORMAP_JET)
