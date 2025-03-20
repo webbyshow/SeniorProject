@@ -42,7 +42,7 @@ def process_image_folder():
         print("Error: RGB and Depth folder must have the same number of images!")
         return
 
-    depth_map_model = 'A' ## 'A'/ 'B' / 'C' / 'D'
+    depth_map_model = 'D' ## 'A'/ 'B' / 'C' / 'D'
 
     ## Set up frame saving folder
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
