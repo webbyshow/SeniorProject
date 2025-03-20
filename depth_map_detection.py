@@ -24,12 +24,14 @@ def process_depth_image(depth_image, max_distance_mm, model='A'):
     if model == 'A' : # Inpaint +  Normal
         depth_inpainted = cv2.inpaint(depth_gray, mask, inpaintRadius=3, flags=cv2.INPAINT_TELEA)
         depth_filtered  = np.where((depth_inpainted > 0) & (depth_inpainted <= max_distance_mm), depth_inpainted, 0)
-        depth_8bit      = cv2.normalize(depth_filtered, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+        depth_8bit_beforeScale = cv2.normalize(depth_filtered, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+        depth_8bit     = cv2.convertScaleAbs(depth_8bit_beforeScale, alpha=0.03)
         depth_colormap  = cv2.applyColorMap(depth_8bit, cv2.COLORMAP_JET)
         return depth_colormap, depth_8bit
     elif model == 'B' : # Normal
         depth_filtered = np.where((depth_gray > 0) & (depth_gray <= max_distance_mm), depth_gray, 0)
-        depth_8bit     = cv2.normalize(depth_filtered, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+        depth_8bit_beforeScale = cv2.normalize(depth_filtered, None, alpha=0, beta=255, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_8U)
+        depth_8bit     = cv2.convertScaleAbs(depth_8bit_beforeScale, alpha=0.03)
         depth_colormap = cv2.applyColorMap(depth_8bit, cv2.COLORMAP_JET)
         return depth_colormap, depth_8bit
     elif model == 'C' : # Inpaint
