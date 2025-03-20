@@ -31,7 +31,7 @@ def merge_detections(color_image, depth_colormap, detected_objects, depth_image,
     for obj in detected_objects:
         x1, y1, x2, y2 = map(int, [obj[3], obj[4], obj[5], obj[6]])  # Convert to int
         conf, cls, depth = obj[7], obj[8], obj[2]
-        label = f"{model.names[int(cls)]}: {conf:.2f}"
+        label = f"{model.names[int(cls)]}" ## f"{model.names[int(cls)]}: {conf:.2f}" 
         cv2.rectangle(color_image, (x1, y1), (x2, y2), (0, 255, 0), 2)
         cv2.putText(color_image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
         depth_text = f"Depth: {depth/1000:.2f}m" if depth > 0 else "Depth: No data"
