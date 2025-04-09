@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 from datetime import datetime
 from ultralytics import YOLO
+# Hello Bug
 
 import config
 from combine_detection   import merge_detections                                # Script file
@@ -42,17 +43,17 @@ def process_image_folder():
         print("Error: RGB and Depth folder must have the same number of images!")
         return
 
-    depth_map_model = 'D' ## 'A'/ 'B' / 'C' / 'D'
+    depth_map_model = 'C' ## 'A'/ 'B' / 'C' / 'D'
 
-    ## Set up frame saving folder
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    # ## Set up frame saving folder
+    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    # recorded_frame_name = "recorded_frames_" + str(timestamp)
-    recorded_frame_saver = "_depth_" + config.DEPTH_MODEL_NAME + depth_map_model 
-    recorded_frame_name = os.path.join('data',recorded_frame_saver) 
-    os.makedirs(recorded_frame_name, exist_ok=True)
+    # # recorded_frame_name = "recorded_frames_" + str(timestamp)
+    # recorded_frame_saver = "_depth_" + config.DEPTH_MODEL_NAME + depth_map_model 
+    # recorded_frame_name = os.path.join('data',recorded_frame_saver) 
+    # os.makedirs(recorded_frame_name, exist_ok=True)
     
-    rgb_out, depth_out, rgb_no_label_out = setup_frame_savers(recorded_frame_name)
+    # rgb_out, depth_out, rgb_no_label_out = setup_frame_savers(recorded_frame_name)
 
     for i, (rgb_file, depth_file) in enumerate(zip(rgb_files, depth_files)):
         rgb_path = os.path.join(rgb_folder, rgb_file)
@@ -83,8 +84,8 @@ def process_image_folder():
 
         cv2.putText(color_image, command_text, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
-        save_frame(color_image,    recorded_frame_name + "/color_image", frame_index)
-        save_frame(depth_colormap, recorded_frame_name + "/depth_colormap", frame_index)
+        # save_frame(color_image,    recorded_frame_name + "/color_image", frame_index)
+        # save_frame(depth_colormap, recorded_frame_name + "/depth_colormap", frame_index)
         # save_frame(color_no_label, recorded_frame + "/color_no_label", frame_index)
         frame_index += 1
 
