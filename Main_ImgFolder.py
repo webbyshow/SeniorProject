@@ -46,13 +46,7 @@ def process_image_folder():
     depth_map_model = 'C' ## 'A'/ 'B' / 'C' / 'D'
 
     # ## Set up frame saving folder
-    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-    # # recorded_frame_name = "recorded_frames_" + str(timestamp)
-    # recorded_frame_saver = "_depth_" + config.DEPTH_MODEL_NAME + depth_map_model 
-    # recorded_frame_name = os.path.join('data',recorded_frame_saver) 
-    # os.makedirs(recorded_frame_name, exist_ok=True)
-    
+    # timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")    
     # rgb_out, depth_out, rgb_no_label_out = setup_frame_savers(recorded_frame_name)
 
     for i, (rgb_file, depth_file) in enumerate(zip(rgb_files, depth_files)):
